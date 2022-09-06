@@ -1,4 +1,3 @@
-
 <?php
 
 	$inData = getRequestInfo();
@@ -6,6 +5,8 @@
 	$id = 0;
 	$firstName = "";
 	$lastName = "";
+    $username = "";
+    $password = "";
 
 	
 	$conn = new mysqli("localhost", "TheCourtmac", "WeLoveCOP4331", "COP4331"); 	
@@ -15,22 +16,19 @@
 	}
 	else
 	{
-		$stmt = $conn->prepare("SELECT ID,Login,Password, FROM Users WHERE Login=? AND Password =?");
-		$stmt->bind_param("ss", $inData["login"], $inData["password"]);
-		$stmt->execute();
-		$result = $stmt->get_result();
-
-		if( $row = $result->fetch_assoc()  )
-		{
-			returnWithInfo( $row['Login'], $row['Password'], $row['ID'] );
+		$select = mysqli_query($conn, "SELECT * FROM Users WHERE Login = $inData['Login']"); 
+		if (mysqli_num_rows($select)) {
+			returnWithError('This username already exists');
 		}
-		else
-		{
-			returnWithError("No Records Found");
-		}
+		
+		// Gets last row for ID purposes
+		$last_row = "SELECT * FROM Users WHERE ID=(SELECT max(ID) FROM Users)";
+		$last_row_id = $last_row['ID'] + 1;
+		$insert_val = "INSERT INTO Users (ID, FirstName, LastName, Login, Password) VALUES ($last_row_id, $inData['FirstName'], $inData['LastName'], $inData['Login'], $inData['Password'])";
+		$insert_val->execute();
 
-
-		$stmt->close();
+		$select->close();
+		$insert_val->close();
 		$conn->close();
 	}
 	
@@ -47,7 +45,7 @@
 	
 	function returnWithError( $err )
 	{
-		$retValue = '{"id":0,"Login":"","lastName":"","error":"' . $err . '"}';
+		$retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 	
