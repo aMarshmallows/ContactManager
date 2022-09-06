@@ -16,7 +16,8 @@
 	}
 	else
 	{
-		$select = mysqli_query($conn, "SELECT * FROM Users WHERE Login = $inData['Login']"); 
+		$login = $_POST['firstName']; 
+		$select = mysqli_query($conn, "SELECT * FROM Users WHERE Login = $inData[Login]"); 
 		if (mysqli_num_rows($select)) {
 			returnWithError('This username already exists');
 		}
