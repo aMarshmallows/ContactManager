@@ -4,7 +4,6 @@
 	$inData = getRequestInfo();
 	
 	$id = 0;
-	$xd = 5;
 	$firstName = "";
 	$lastName = "";
 
