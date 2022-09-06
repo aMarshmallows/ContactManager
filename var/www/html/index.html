@@ -11,12 +11,13 @@
 <h2>Group 21 Contact Manager</h2>
 <div class="container" id="container">
 	<div class="form-container sign-up-container">
-		<form action="#">
+		<?php include 'test.php';?>
+		<form action="#" method = "post">
 			<h1>Create Account</h1>
-			<span>or use your email for registration</span>
-			<input type="text" placeholder="Name" id = "name1" />
-			<input type="user" placeholder="Username" id = "user1" />
-			<input type="password" placeholder="Password" id = "pass1"/>
+			<input type="text" placeholder = "First Name" name = "firstName"/>
+			<input type="text" placeholder="Last Name" id = "lastName" />
+			<input type="user" placeholder="Username" id = "Login" />
+			<input type="password" placeholder="Password" id = "password"/>
 			<button class="buttons" id="processSignUp">Sign Up</button>
 		</form>
 	</div>
