@@ -11,9 +11,9 @@
     }
     else
     {
-        $stmt = $conn->prepare("select * from Contacts where (FirstName like ? OR LastName like ? OR Email like ? OR Phone like ?) and ID=?");
-        $searchResult = "%" . $inData["search"] . "%";
-        $stmt->bind_param("sssss", $searchResult, $searchResult, $searchResult, $searchResult, $inData["ID"]);
+        $stmt = $conn->prepare("select * from Contacts where (Name like ? OR Phone like ? OR Email like ?) and userId=?");
+		$colorName = "%" . $inData["search"] . "%";
+		$stmt->bind_param("ssss", $colorName, $colorName, $colorName, $inData["userId"]);
         $stmt->execute();
         
         $result = $stmt->get_result();
@@ -26,8 +26,8 @@
             }
             $searchCount++;
             // Storing data as JSON Objects
-            $searchResults .= ' {"FirstName" : "' . $row["FirstName"] . '", "LastName" : "' . $row["LastName"] . '",
-                            "Phone" : "' . $row["Phone"] . '", "Email" : "' . $row["Email"] . '"}';
+            $searchResults .= ' {"FirstName" : "' . $row["firstName"] . '", "LastName" : "' . $row["lastName"] . '",
+                            "Phone" : "' . $row["phone"] . '", "Email" : "' . $row["email"] . '"}';
         }
         
         if( $searchCount == 0 )
