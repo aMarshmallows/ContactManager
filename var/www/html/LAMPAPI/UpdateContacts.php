@@ -1,4 +1,13 @@
 <?php
+    //for CORS
+    $http_origin = $_SERVER['HTTP_ORIGIN'];
+    if ($http_origin == "http://127.0.0.1:5500" || $http_origin == "http://www.domain2.com" || $http_origin == "http://www.domain3.com")
+    {  
+        header("Access-Control-Allow-Origin: $http_origin");
+    }
+    header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
+    header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
+    
     $inData = getRequestInfo();
     
     $Id = $inData["ID"];
