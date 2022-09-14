@@ -56,6 +56,13 @@ signInButton.addEventListener('click', () => {
 processSignInButton.addEventListener('click', () => {
 	let user = document.getElementById("Username").value;
 	let pass = document.getElementById("Password").value;
+	let loginError = document.getElementById("loginError");
+
+	if(user == null || user == '' || pass == null || pass == ''){
+		loginError.textContent = 'Username or Password is incorrect';
+		console.log('Failed try again');
+		return;
+	}
 
 	fetch('http://cop4331group20.online/LAMPAPI/Login.php', {
 		method: 'POST',
@@ -71,12 +78,19 @@ processSignInButton.addEventListener('click', () => {
 	})
 	.then(data =>{
 		console.log(data)
+		if(data["error"] != ''){
+			loginError.textContent = 'Username or Password is incorrect';
+			return;
+		}
 		sessionStorage.setItem("auth", 1);
 		sessionStorage.setItem("userId", data["id"]);
 		sessionStorage.setItem("firstName", data["firstName"]);
 		location.href = "./contacts.html";
 	})
-	.catch(error => console.log('ERROR: Failed Account creation'))
+	.catch(error => {
+		console.log('ERROR: Failed login');
+		loginError.textContent = 'Username or Password is incorrect';
+	})
 	//place api call here
 });
 

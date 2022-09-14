@@ -1,8 +1,14 @@
 const addButton = document.getElementById('addButton');
 const searchButton = document.getElementById('searchBtn');
-const seeAllButton = document.getElementById('seeAll')
+const seeAllButton = document.getElementById('seeAll');
+const greeting = document.getElementById('greeting');
+
+const usrID = sessionStorage.getItem('userId');
+const firstName = sessionStorage.getItem('firstName');
+greeting.textContent = 'Welcome, ' + firstName;
 
 let contacts = []
+
 
 // loading table values API
 fetch("http://cop4331group20.online/LAMPAPI/SearchContacts.php",{
@@ -11,7 +17,7 @@ fetch("http://cop4331group20.online/LAMPAPI/SearchContacts.php",{
         'Content-Type':'application/json'
     },
     body: JSON.stringify({
-        userId: 1,
+        userId: usrID,
         search: ""
     })
 }).then(res => {
@@ -61,7 +67,7 @@ seeAllButton.addEventListener('click', () => {
             'Content-Type':'application/json'
         },
         body: JSON.stringify({
-            userId: 1,
+            userId: usrID,
             search: ""
         })
     }).then(res => {
@@ -111,14 +117,15 @@ addButton.addEventListener('click', () => {
             Name: nameIn.value,
             Email: emailIn.value,
             Phone: phoneIn.value,
-            userId: 1
+            userId: usrID
         })
     }).then(res => {
         return res.json()
     }).then(data => {
         console.log(data);
+        location.reload();
     }).catch(error => console.log("Failed to add contact."))
 });
 
-// ssh root@67.205.165.241
+
 // http://cop4331group20.online/contacts.html
