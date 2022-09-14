@@ -7,7 +7,6 @@
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css'><link rel="stylesheet" href="./css/style.css">
 </head>
 
-
 <body>
 	<!-- partial:index.partial.html -->
 
@@ -17,6 +16,18 @@
 			<h3 id="greeting">Welcome</h3>
 		</div>
 		
+<!-- partial:index.partial.html -->
+<h3 style="text-align: left; margin: 20px 0 30px;">Welcome first name</h3>
+<div class="dashboard-container" id="container">
+
+    <div class="dashboard-container">
+		<form action="#">
+			<h1>Search</h1>
+			<span></span>
+			<input type="search" placeholder="Type in Contact Name" id = "search" />
+			<button class="buttons" id="searchBtn">Search</button>
+			<button class="buttons" id="seeAll">See All Contacts</button>
+		</form>
 	</div>
 	<div class="dashboard-container" id="container">
 
@@ -42,8 +53,9 @@
 			</form>
 		</div>
 
-		<div class="dashboard-container">
-			<h1>Contacts</h1>
+    <div class="dashboard-container">
+		<form action="#">
+			<h1>Add Contact</h1>
 			<span></span>
 
 			<table>
@@ -55,11 +67,15 @@
 					</tr>
 				</thead>
 
-				<tbody id="table_body">
-					
-				</tbody>
-			</table>
-		</div>
+		<table>
+			<thead>
+				<tr>
+					<th>Name:</th>
+					<th>Email:</th>
+					<th>Phone:</th>
+					<th>Delete:</th>
+				</tr>
+			</thead>
 
 		<script src="js/script3.js"></script>
 		

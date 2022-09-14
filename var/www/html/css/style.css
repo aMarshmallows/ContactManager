@@ -2,8 +2,6 @@
 
 * {
 	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
 }
 
 body {
@@ -131,7 +129,6 @@ header{
 	width: 768px;
 	max-width: 100%;
 	min-height: 480px;
-	margin: auto;
 }
 
 .dashboard-container {
