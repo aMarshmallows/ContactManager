@@ -9,63 +9,61 @@
 
 
 <body>
-<!-- partial:index.partial.html -->
+	<!-- partial:index.partial.html -->
 
-<div class="top-section-container">
-	<header>
-		<div class="wrapper">
-			<h3 id="greeting" class="greeting-text" ">Welcome</h3>
+	<div class="nav-bar">
+		<h3 id="back" class="left-stick-header">Back</h3>
+		<div>
+			<h3 id="greeting">Welcome</h3>
 		</div>
 		
-	</header>
-	
-</div>
-<div class="dashboard-container" id="container">
+	</div>
+	<div class="dashboard-container" id="container">
 
-    <div class="dashboard-container">
-		<form action="#">
-			<h1>Search</h1>
+		<div class="dashboard-container">
+			<form action="#">
+				<h1>Search</h1>
+				<span></span>
+				<input type="search" placeholder="Type in Contact Name" id = "search" />
+				<button class="buttons" id="searchBtn">Search</button>
+				<button class="buttons" id="seeAll">See All Contacts</button>
+			</form>
+		</div>
+
+		<div class="dashboard-container">
+			<form action="#" onsubmit="return false">
+				<h1>Add Contact</h1>
+				<span></span>
+				<input type="text" placeholder="Name" id = "name1" />
+				<input type="text" placeholder="Email" id = "email1" />
+				<input type="text" placeholder="Phone Number" id = "phoneNumber1"/>
+				<button class="buttons" id="addButton">Add Contact</button>
+				<button class="buttons" id="editButton">Edit Contact</button>
+			</form>
+		</div>
+
+		<div class="dashboard-container">
+			<h1>Contacts</h1>
 			<span></span>
-			<input type="search" placeholder="Type in Contact Name" id = "search" />
-			<button class="buttons" id="searchBtn">Search</button>
-			<button class="buttons" id="seeAll">See All Contacts</button>
-		</form>
+
+			<table>
+				<thead>
+					<tr>
+						<th>Name:</th>
+						<th>Email:</th>
+						<th>Phone:</th>
+					</tr>
+				</thead>
+
+				<tbody id="table_body">
+					
+				</tbody>
+			</table>
+		</div>
+
+		<script src="js/script3.js"></script>
+		
 	</div>
-
-    <div class="dashboard-container">
-		<form action="#" onsubmit="return false">
-			<h1>Add Contact</h1>
-			<span></span>
-			<input type="text" placeholder="Name" id = "name1" />
-			<input type="text" placeholder="Email" id = "email1" />
-			<input type="text" placeholder="Phone Number" id = "phoneNumber1"/>
-			<button class="buttons" id="addButton">Add Contact</button>
-			<button class="buttons" id="editButton">Edit Contact</button>
-		</form>
-	</div>
-
-	<div class="dashboard-container">
-		<h1>Contacts</h1>
-		<span></span>
-
-		<table>
-			<thead>
-				<tr>
-					<th>Name:</th>
-					<th>Email:</th>
-					<th>Phone:</th>
-				</tr>
-			</thead>
-
-			<tbody id="table_body">
-				
-			</tbody>
-		</table>
-	</div>
-
-	<script src="js/script3.js"></script>
-    
-</div>
 <!-- partial -->
   <!--<script  src="./script.js"></script>-->
 
