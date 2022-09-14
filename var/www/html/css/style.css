@@ -89,6 +89,10 @@ input {
 	width: 100%;
 }
 
+.greeting-text{
+	text-align: left;
+}
+
 .container {
 	background-color: #fff;
 	border-radius: 10px;

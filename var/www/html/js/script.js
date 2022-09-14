@@ -40,7 +40,10 @@ processSignUpButton.addEventListener('click', () => {
 	})
 	.then(data =>{
 		console.log(data);
-		location.href = "http://cop4331group20.online/contacts.html";
+		sessionStorage.setItem("firstName", fName);
+		sessionStorage.setItem("auth", 1);
+		sessionStorage.setItem("userId", 9999);
+		location.href = "./contacts.html";
 	} )
 	.catch(error => console.log('ERROR: Failed Account creation'))
 
@@ -71,7 +74,7 @@ processSignInButton.addEventListener('click', () => {
 		sessionStorage.setItem("auth", 1);
 		sessionStorage.setItem("userId", data["id"]);
 		sessionStorage.setItem("firstName", data["firstName"]);
-		location.href = "http://cop4331group20.online/contacts.html";
+		location.href = "./contacts.html";
 	})
 	.catch(error => console.log('ERROR: Failed Account creation'))
 	//place api call here
