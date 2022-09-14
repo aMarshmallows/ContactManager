@@ -1,14 +1,8 @@
 const addButton = document.getElementById('addButton');
 const searchButton = document.getElementById('searchBtn');
 const seeAllButton = document.getElementById('seeAll');
-const greeting = document.getElementById('greeting');
-
-const usrID = sessionStorage.getItem('userId');
-const firstName = sessionStorage.getItem('firstName');
-greeting.textContent = 'Welcome, ' + firstName;
 
 let contacts = []
-
 
 // loading table values API
 fetch("http://cop4331group20.online/LAMPAPI/SearchContacts.php",{
@@ -17,7 +11,7 @@ fetch("http://cop4331group20.online/LAMPAPI/SearchContacts.php",{
         'Content-Type':'application/json'
     },
     body: JSON.stringify({
-        userId: usrID,
+        userId: 1,
         search: ""
     })
 }).then(res => {
@@ -30,6 +24,7 @@ fetch("http://cop4331group20.online/LAMPAPI/SearchContacts.php",{
         <td>${values.Name}</td>
         <td>${values.Email}</td>
         <td>${values.Phone}</td>
+        <td><button class="buttons" id="delete${values.Name}">Delete</button></td>
         </tr>`
 
         return{Name: values.Name, Email: values.Email, Phone: values.Phone}
@@ -67,25 +62,26 @@ seeAllButton.addEventListener('click', () => {
             'Content-Type':'application/json'
         },
         body: JSON.stringify({
-            userId: usrID,
+            userId: 1,
             search: ""
         })
     }).then(res => {
         return res.json()
     }).then(data => {
         console.log(data["results"][0])
-        let tableData = "";
+        let tableData3 = "";
         contacts = data["results"].map((values)=>{
-            tableData+= `<tr>
+            tableData3+= `<tr>
             <td>${values.Name}</td>
             <td>${values.Email}</td>
             <td>${values.Phone}</td>
+            <td><button class="buttons" id="delete">Delete</button></td>
             </tr>`
 
             return{Name: values.Name, Email: values.Email, Phone: values.Phone}
     })
 
-    document.getElementById("table_body").innerHTML = tableData;
+    document.getElementById("table_body").innerHTML = tableData3;
 
     }).catch(error=>console.log('ERROR'))
    
@@ -117,15 +113,17 @@ addButton.addEventListener('click', () => {
             Name: nameIn.value,
             Email: emailIn.value,
             Phone: phoneIn.value,
-            userId: usrID
+            userId: 1
         })
     }).then(res => {
         return res.json()
     }).then(data => {
         console.log(data);
-        location.reload();
     }).catch(error => console.log("Failed to add contact."))
 });
 
+// delete contact API
 
+
+// ssh root@67.205.165.241
 // http://cop4331group20.online/contacts.html
