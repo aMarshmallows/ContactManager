@@ -2,20 +2,15 @@
 
 * {
 	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
 }
 
 body {
-	background: #f6f5f7;
-	
-	justify-content: center;
+	background: #fff;
 	align-items: center;
+	justify-content: center;
+	margin:0px;
 	flex-direction: column;
 	font-family: 'Montserrat', sans-serif;
-	height: 100vh;
-	margin: -20px 0 50px;
-	padding: 100px 0;
 }
 
 h1 {
@@ -54,7 +49,7 @@ button {
 	color: #FFFFFF;
 	font-size: 12px;
 	font-weight: bold;
-	padding: 12px 45px;
+	padding: 12px 20px;
 	letter-spacing: 1px;
 	text-transform: uppercase;
 	transition: transform 80ms ease-in;
@@ -96,10 +91,27 @@ header{
 	height: 90px;
 }
 
-.greeting-text{
-	float: left;
-	line-height: 90px;
-	padding-left: 30px;
+.left-stick-header{
+	display: flex;
+	flex-direction: row;
+	gap: 20px;
+
+}
+
+.nav-bar{
+	background: #87dbff;
+	padding: 15px;
+	margin: 0px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.button-wrapper{
+	display:flex;
+	flex-direction:row;
+	gap: 3em;
+	padding: 5px;
 }
 
 .wrapper{
@@ -115,9 +127,6 @@ header{
 	color: #f70101;
 }
 
-.greeting-text{
-	text-align: left;
-}
 
 .container {
 	background-color: #fff;
@@ -129,15 +138,21 @@ header{
 	width: 768px;
 	max-width: 100%;
 	min-height: 480px;
-	margin: auto;
+}
+
+.dashboard{
+	display:flex;
+	justify-content: center;
+	margin-left: 30px;
+	flex-direction: column;
 }
 
 .dashboard-container {
-	left: 0;
-	width: 100%;
+	padding-top: 10px;
 	margin-bottom: 20px;
-	z-index: 2;
 	background-color: #fff;
+	max-width: 1000px;
+	justify-self: center;
 }
 
 .form-container {
