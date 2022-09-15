@@ -2,6 +2,7 @@ const addButton = document.getElementById('addButton');
 const searchButton = document.getElementById('searchBtn');
 const seeAllButton = document.getElementById('seeAll');
 const greeting = document.getElementById('greeting');
+const logOutButton = document.getElementById('logoutButton');
 
 const usrID = sessionStorage.getItem('userId');
 const firstName = sessionStorage.getItem('firstName');
