@@ -3,6 +3,9 @@ const searchButton = document.getElementById('searchBtn');
 const seeAllButton = document.getElementById('seeAll');
 
 let contacts = []
+function getClickID(clickID){
+    
+}
 
 // loading table values API
 fetch("http://cop4331group20.online/LAMPAPI/SearchContacts.php",{
@@ -19,13 +22,15 @@ fetch("http://cop4331group20.online/LAMPAPI/SearchContacts.php",{
 }).then(data => {
     console.log(data["results"][0])
     let tableData = "";
+    let counter = 0;
     contacts = data["results"].map((values)=>{
         tableData+= `<tr>
         <td>${values.Name}</td>
         <td>${values.Email}</td>
         <td>${values.Phone}</td>
-        <td><button class="buttons" id="delete${values.Name}">Delete</button></td>
+        <td><button class="buttons" id="delete${counter}" onclick="getClickID(this.id)">Delete</button><button class="buttons" id="edit${counter}" onclick="getClickID(this.id)">Edit</button></td>
         </tr>`
+        counter++;
 
         return{Name: values.Name, Email: values.Email, Phone: values.Phone}
     })
@@ -38,6 +43,7 @@ searchButton.addEventListener('click', () => {
     const value = document.getElementById("search").value;
 
     let tableData2 = "";
+    let counter3 = 0;
     contacts.forEach(contact => {
         const isVisible = contact.Name.toLowerCase().includes(value) || contact.Email.toLowerCase().includes(value) || contact.Phone.includes(value);
         
@@ -46,7 +52,9 @@ searchButton.addEventListener('click', () => {
             <td>${contact.Name}</td>
             <td>${contact.Email}</td>
             <td>${contact.Phone}</td>
+            <td><button class="buttons" id="delete${counter3}" onclick="getClickID(this.id)">Delete</button><button class="buttons" id="edit${counter3}" onclick="getClickID(this.id)">Edit</button></td>
             </tr>`
+            counter3++;
         }
     })
 
@@ -70,13 +78,15 @@ seeAllButton.addEventListener('click', () => {
     }).then(data => {
         console.log(data["results"][0])
         let tableData3 = "";
+        let counter2 = 0;
         contacts = data["results"].map((values)=>{
             tableData3+= `<tr>
             <td>${values.Name}</td>
             <td>${values.Email}</td>
             <td>${values.Phone}</td>
-            <td><button class="buttons" id="delete">Delete</button></td>
+            <td><button class="buttons" id="delete${counter2}" onclick="getClickID(this.id)">Delete</button><button class="buttons" id="edit${counter2}" onclick="getClickID(this.id)">Edit</button></td>
             </tr>`
+            counter2++;
 
             return{Name: values.Name, Email: values.Email, Phone: values.Phone}
     })
