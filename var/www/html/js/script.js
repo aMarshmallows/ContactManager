@@ -74,11 +74,13 @@ processSignInButton.addEventListener('click', () => {
 		return res.json()
 	})
 	.then(data =>{
+
 		console.log(data);
-   if(data["error"] != '' || data["id"] == null){
-			loginError.textContent = 'Username or Password is incorrect';
-			return;
-		}
+   	if(data["error"] != '' || data["id"] == null){
+		loginError.textContent = 'Username or Password is incorrect';
+		return;
+	}
+
 		sessionStorage.setItem("auth", 1);
 		sessionStorage.setItem("userId", data["id"]);
 		sessionStorage.setItem("firstName", data["firstName"]);
