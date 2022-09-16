@@ -26,7 +26,7 @@
             }
             $searchCount++;
             // Storing data as JSON Objects
-            $searchResults .= ' {"Name" : "' . $row['Name'] . '", "Phone" : "' . $row["Phone"] . '", "Email" : "' . $row["Email"] . '"}';
+            $searchResults .= '{"Name" : "' . $row['Name'] . '", "Email" : "' . $row['Email'] . '", "Phone" : "' . $row['Phone'] . '", "ID" : "' . $row['ID'] . '"}';
         }
         
         if( $searchCount == 0 )
