@@ -40,7 +40,7 @@ processSignUpButton.addEventListener('click', () => {
 	})
 	.then(data =>{
 		console.log(data);
-		location.href = "http://cop4331group20.online/contacts.html";
+		location.href = "./index.html";
 	} )
 	.catch(error => console.log('ERROR: Failed Account creation'))
 
@@ -53,6 +53,13 @@ signInButton.addEventListener('click', () => {
 processSignInButton.addEventListener('click', () => {
 	let user = document.getElementById("Username").value;
 	let pass = document.getElementById("Password").value;
+  let loginError = document.getElementById("loginError");
+
+	if(user == null || user == '' || pass == null || pass == ''){
+		loginError.textContent = 'Username or Password is incorrect';
+		console.log('Failed try again');
+		return;
+	}
 
 	fetch('http://cop4331group20.online/LAMPAPI/Login.php', {
 		method: 'POST',
@@ -67,13 +74,17 @@ processSignInButton.addEventListener('click', () => {
 		return res.json()
 	})
 	.then(data =>{
-		console.log(data)
+		console.log(data);
+   if(data["error"] != '' || data["id"] == null){
+			loginError.textContent = 'Username or Password is incorrect';
+			return;
+		}
 		sessionStorage.setItem("auth", 1);
 		sessionStorage.setItem("userId", data["id"]);
 		sessionStorage.setItem("firstName", data["firstName"]);
-		location.href = "http://cop4331group20.online/contacts.html";
+		location.href = "./contacts.html";
 	})
-	.catch(error => console.log('ERROR: Failed Account creation'))
+	.catch(error => console.log('ERROR: Failed Login'))
 	//place api call here
 });
 
