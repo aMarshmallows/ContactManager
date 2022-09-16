@@ -138,6 +138,7 @@ header{
 	width: 768px;
 	max-width: 100%;
 	min-height: 480px;
+	margin: auto;
 }
 
 .dashboard{
@@ -152,7 +153,7 @@ header{
 	margin-bottom: 20px;
 	background-color: #fff;
 	max-width: 1000px;
-	justify-self: center;
+	margin: auto;
 }
 
 .form-container {
