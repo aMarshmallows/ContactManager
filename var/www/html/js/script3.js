@@ -8,7 +8,6 @@ const usrID = sessionStorage.getItem('userId');
 greeting.textContent = 'Welcome, ' + firstName;
 
 let contacts = []
-let deleteInfo = []
 
 // loading table values API
 fetch("http://cop4331group20.online/LAMPAPI/SearchContacts.php",{
@@ -43,8 +42,6 @@ fetch("http://cop4331group20.online/LAMPAPI/SearchContacts.php",{
     document.getElementById("table_body").innerHTML = tableData;
 }).catch(error=>console.log('ERROR'))
 
-// <div id="row${counter}"> </div>
-
 // search function
 searchButton.addEventListener('click', () => {
     const value = document.getElementById("search").value;
@@ -52,7 +49,7 @@ searchButton.addEventListener('click', () => {
     let tableData2 = "";
     let counter3 = 0;
     contacts.forEach(contact => {
-        const isVisible = contact.Name.toLowerCase().includes(value) || contact.Email.toLowerCase().includes(value) || contact.Phone.includes(value);
+        const isVisible = contact.Name.toLowerCase().includes(value) || contact.Email.toLowerCase().includes(value) || contact.Phone.includes(value) || contact.Name.includes(value) || contact.Email.includes(value);
         
         if(isVisible == true){
             tableData2 += `<tr>
@@ -154,10 +151,8 @@ function remove(button){
     }).then(res => {
         return res.json()
     }).then(data => {
-        console.log(data["results"][number].Name)
         deleteID = data["results"][number].ID
         deleteName = data["results"][number].Name
-        console.log(deleteID, deleteName)
 
         fetch("http://cop4331group20.online/LAMPAPI/DeleteContacts.php", {
         method: 'POST',
@@ -182,6 +177,8 @@ function edit(button){
     let number = button.id
     let editID = 0
     let editName = ""
+
+    
 }
 
 // ssh root@67.205.165.241
