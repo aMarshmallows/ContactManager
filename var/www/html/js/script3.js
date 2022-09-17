@@ -32,7 +32,7 @@ fetch("http://cop4331group20.online/LAMPAPI/SearchContacts.php",{
         <td>${values.Name}</td>
         <td>${values.Email}</td>
         <td>${values.Phone}</td>
-        <td><button class="buttons" id="${counter}" onclick="remove(this)">Delete</button><button class="buttons" id="edit${counter}" onclick="getClickID(this.id)">Edit</button></td>
+        <td><button class="buttons" id="${counter}" onclick="remove(this)" >Delete</button><button class="buttons" id="edit${counter}" onclick="getClickID(this.id)">Edit</button></td>
         </tr>
         `
         counter++;
@@ -59,7 +59,7 @@ searchButton.addEventListener('click', () => {
             <td>${contact.Name}</td>
             <td>${contact.Email}</td>
             <td>${contact.Phone}</td>
-            <td><button class="buttons" id="delete${counter3}" onclick="getClickID(this.id)">Delete</button><button class="buttons" id="edit${counter3}" onclick="getClickID(this.id)">Edit</button></td>
+            <td><button class="buttons" id="${counter3}" onclick="remove(this)" >Delete</button><button class="buttons" id="edit${counter3}" onclick="getClickID(this.id)">Edit</button></td>
             </tr>`
             counter3++;
         }
@@ -91,7 +91,7 @@ seeAllButton.addEventListener('click', () => {
             <td>${values.Name}</td>
             <td>${values.Email}</td>
             <td>${values.Phone}</td>
-            <td><button class="buttons" id="delete${counter2}" onclick="getClickID(this.id)">Delete</button><button class="buttons" id="edit${counter2}" onclick="getClickID(this.id)">Edit</button></td>
+            <td><button class="buttons" id="${counter2}" onclick="remove(this)" >Delete</button><button class="buttons" id="edit${counter2}" onclick="getClickID(this.id)">Edit</button></td>
             </tr>`
             counter2++;
 
@@ -140,7 +140,6 @@ addButton.addEventListener('click', () => {
 function remove(button){
     let number = button.id
     let row = document.getElementById('row'+number)
-    console.log(row)
     let deleteID = 0
     let deleteName = ""
 
@@ -173,11 +172,11 @@ function remove(button){
         }).then(res => {
             return res.json()
         }).then(data => {
-            
+            location.reload()
         }).catch(error=>console.log('ERROR'))
             
         }).catch(error=>console.log('ERROR'))
-    }
+}
 
 // ssh root@67.205.165.241
 // http://cop4331group20.online/contacts.html
