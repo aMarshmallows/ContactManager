@@ -2,6 +2,7 @@ const addButton = document.getElementById('addButton');
 const searchButton = document.getElementById('searchBtn');
 const seeAllButton = document.getElementById('seeAll');
 const greeting = document.getElementById('greeting');
+const logoutButton = document.getElementById('logout');
 
 const firstName = sessionStorage.getItem('firstName');
 const usrID = sessionStorage.getItem('userId');
@@ -178,6 +179,11 @@ function remove(button){
             
         }).catch(error=>console.log('ERROR'))
     }
+    //logout logic
+    logoutButton.addEventListener('click', () => {
+        localStorage.clear();
+        location.href = "./index.html";
+    })
 
 // ssh root@67.205.165.241
 // http://cop4331group20.online/contacts.html
