@@ -32,7 +32,7 @@ fetch("http://cop4331group20.online/LAMPAPI/SearchContacts.php",{
         <td>${values.Name}</td>
         <td>${values.Email}</td>
         <td>${values.Phone}</td>
-        <td><button class="buttons" id="${counter}" onclick="remove(this)" >Delete</button><button class="buttons" id="edit${counter}" onclick="getClickID(this.id)">Edit</button></td>
+        <td><button class="buttons" id="${counter}" onclick="remove(this)" >Delete</button><button class="buttons" id="edit${counter}" onclick="edit(this)">Edit</button></td>
         </tr>
         `
         counter++;
@@ -59,7 +59,7 @@ searchButton.addEventListener('click', () => {
             <td>${contact.Name}</td>
             <td>${contact.Email}</td>
             <td>${contact.Phone}</td>
-            <td><button class="buttons" id="${counter3}" onclick="remove(this)" >Delete</button><button class="buttons" id="edit${counter3}" onclick="getClickID(this.id)">Edit</button></td>
+            <td><button class="buttons" id="${counter3}" onclick="remove(this)" >Delete</button><button class="buttons" id="edit${counter3}" onclick="edit(this)">Edit</button></td>
             </tr>`
             counter3++;
         }
@@ -91,7 +91,7 @@ seeAllButton.addEventListener('click', () => {
             <td>${values.Name}</td>
             <td>${values.Email}</td>
             <td>${values.Phone}</td>
-            <td><button class="buttons" id="${counter2}" onclick="remove(this)" >Delete</button><button class="buttons" id="edit${counter2}" onclick="getClickID(this.id)">Edit</button></td>
+            <td><button class="buttons" id="${counter2}" onclick="remove(this)" >Delete</button><button class="buttons" id="edit${counter2}" onclick="edit(this)">Edit</button></td>
             </tr>`
             counter2++;
 
@@ -139,7 +139,6 @@ addButton.addEventListener('click', () => {
 // delete contact API
 function remove(button){
     let number = button.id
-    let row = document.getElementById('row'+number)
     let deleteID = 0
     let deleteName = ""
 
@@ -176,6 +175,13 @@ function remove(button){
         }).catch(error=>console.log('ERROR'))
             
         }).catch(error=>console.log('ERROR'))
+}
+
+// edit contact API
+function edit(button){
+    let number = button.id
+    let editID = 0
+    let editName = ""
 }
 
 // ssh root@67.205.165.241
