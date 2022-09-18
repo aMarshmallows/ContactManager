@@ -1,12 +1,17 @@
 const addButton = document.getElementById('addButton');
 const searchButton = document.getElementById('searchBtn');
 const seeAllButton = document.getElementById('seeAll');
+const saveButton = document.getElementById('saveButton');
+const cancelEditButton = document.getElementById('cancelButton');
 const greeting = document.getElementById('greeting');
 const logoutButton = document.getElementById('logout');
 
+//initializing UI elements
 const firstName = sessionStorage.getItem('firstName');
 const usrID = sessionStorage.getItem('userId');
 greeting.textContent = 'Welcome, ' + firstName;
+saveButton.style.display = "none";
+cancelEditButton.style.display = "none";
 
 let contacts = []
 let deleteInfo = []
@@ -24,7 +29,6 @@ fetch("http://cop4331group20.online/LAMPAPI/SearchContacts.php",{
 }).then(res => {
     return res.json()
 }).then(data => {
-    console.log(data["results"][0])
     let tableData = "";
     let counter = 0;
     contacts = data["results"].map((values)=>{
@@ -33,7 +37,7 @@ fetch("http://cop4331group20.online/LAMPAPI/SearchContacts.php",{
         <td>${values.Name}</td>
         <td>${values.Email}</td>
         <td>${values.Phone}</td>
-        <td><button class="buttons" id="${counter}" onclick="remove(this)">Delete</button><button class="buttons" id="edit${counter}" onclick="getClickID(this.id)">Edit</button></td>
+        <td><button class="buttons" id="${counter}" onclick="remove(this)">Delete</button><button class="buttons" id="${counter}" onclick="editInitialize(this)">Edit</button></td>
         </tr>
         `
         counter++;
@@ -60,7 +64,7 @@ searchButton.addEventListener('click', () => {
             <td>${contact.Name}</td>
             <td>${contact.Email}</td>
             <td>${contact.Phone}</td>
-            <td><button class="buttons" id="delete${counter3}" onclick="getClickID(this.id)">Delete</button><button class="buttons" id="edit${counter3}" onclick="getClickID(this.id)">Edit</button></td>
+            <td><button class="buttons" id="${counter3}" onclick="remove(this)">Delete</button><button class="buttons" id="${counter3}" onclick="editInitialize(this)">Edit</button></td>
             </tr>`
             counter3++;
         }
@@ -92,7 +96,7 @@ seeAllButton.addEventListener('click', () => {
             <td>${values.Name}</td>
             <td>${values.Email}</td>
             <td>${values.Phone}</td>
-            <td><button class="buttons" id="delete${counter2}" onclick="getClickID(this.id)">Delete</button><button class="buttons" id="edit${counter2}" onclick="getClickID(this.id)">Edit</button></td>
+            <td><button class="buttons" id="${counter2}" onclick="remove(this)">Delete</button><button class="buttons" id="${counter2}" onclick="editInitialize(this)">Edit</button></td>
             </tr>`
             counter2++;
 
@@ -174,16 +178,104 @@ function remove(button){
         }).then(res => {
             return res.json()
         }).then(data => {
-            
+            location.reload();
         }).catch(error=>console.log('ERROR'))
             
         }).catch(error=>console.log('ERROR'))
-    }
-    //logout logic
-    logoutButton.addEventListener('click', () => {
-        localStorage.clear();
-        location.href = "./index.html";
-    })
+}
+//logout logic
+logoutButton.addEventListener('click', () => {
+    localStorage.clear();
+    location.href = "./index.html";
+})
+
+//Initilizes page for Edit contact function
+function editInitialize(button){
+    let number = button.id
+    let row = document.getElementById('row'+number)
+    let ID = 0;
+    console.log(row)
+
+    //Changing ui elements
+    const currentsetting = document.getElementById('currentSetting');
+    currentsetting.textContent = "- Edit Contact -";
+    addButton.style.display = "none";
+    cancelEditButton.style.display = "initial";
+    saveButton.style.display = "initial";
+    
+    fetch("http://cop4331group20.online/LAMPAPI/SearchContacts.php",{
+        method: 'POST',
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body: JSON.stringify({
+            userId: usrID,
+            search: ""
+        })
+    }).then(res => {
+        return res.json()
+    }).then(data => {
+        let nameIn = document.getElementById("name1");
+        nameIn.value = data["results"][number].Name;
+        let emailIn = document.getElementById("email1");
+        emailIn.value = data["results"][number].Email;
+        let phoneIn = document.getElementById("phoneNumber1");
+        phoneIn.value = data["results"][number].Phone;
+        window.ID = data["results"][number].ID;
+        console.log(data["results"][number].Name);
+            
+        }).catch(error=>{
+            console.log('ERROR');
+        })
+}
+//Updates contact
+saveButton.addEventListener('click', () => {
+    let nameIn = document.getElementById("name1").value;
+    let emailIn = document.getElementById("email1").value;
+    let phoneIn = document.getElementById("phoneNumber1").value;
+
+    fetch("http://cop4331group20.online/LAMPAPI/UpdateContacts.php", {
+        method: 'POST',
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body: JSON.stringify({
+            ID: window.ID,
+            Name: nameIn,
+            Phone: phoneIn,
+            Email: emailIn
+        })
+        }).then(res => {
+            return res.json()
+        }).then(data => {
+            revertCurrentSetting();
+            location.reload();
+        }).catch(error=> {
+            console.log('ERROR')
+            revertCurrentSetting();
+        })
+})
+
+cancelEditButton.addEventListener('click', () =>{
+    revertCurrentSetting();
+})
+
+function revertCurrentSetting(){
+    //Changing ui elements
+    const currentsetting = document.getElementById('currentSetting');
+    currentsetting.textContent = "Add Contact";
+    addButton.style.display = "initial";
+    cancelEditButton.style.display = "none";
+    saveButton.style.display = "none";
+
+    let nameIn = document.getElementById("name1");
+    let emailIn = document.getElementById("email1");
+    let phoneIn = document.getElementById("phoneNumber1");
+
+    nameIn.value = "";
+    emailIn.value = "";
+    phoneIn.value = "";
+}
 
 // ssh root@67.205.165.241
 // http://cop4331group20.online/contacts.html
