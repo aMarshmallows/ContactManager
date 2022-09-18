@@ -1,6 +1,6 @@
 # ContactManager
 LAMP stack project for COP4331\
-This is a class project where we created a full stack contact manager app using the LAMP stack!\
+This is a class project where we created a full stack contact manager app using the LAMP stack!
 ## Team roles:
 **Project Manager:** Amasha\
 **API:** Luke and Sanaa\
