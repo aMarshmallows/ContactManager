@@ -51,6 +51,11 @@ fetch("http://cop4331group20.online/LAMPAPI/SearchContacts.php",{
 searchButton.addEventListener('click', () => {
     const value = document.getElementById("search").value;
 
+    if(value == '' || value == null){
+        alert("Please fill all required fields.")
+        return;
+    }
+
     let tableData2 = "";
     let counter3 = 0;
     contacts.forEach(contact => {
@@ -86,7 +91,6 @@ seeAllButton.addEventListener('click', () => {
     }).then(res => {
         return res.json()
     }).then(data => {
-        console.log(data["results"][0])
         let tableData3 = "";
         let counter2 = 0;
         contacts = data["results"].map((values)=>{
@@ -113,12 +117,10 @@ addButton.addEventListener('click', () => {
     let emailIn = document.getElementById("email1");
     let phoneIn = document.getElementById("phoneNumber1");
 
-    if(nameIn == '' || nameIn == null || emailIn == '' || emailIn == null || phoneIn == '' || phoneIn == null){
-		alert("Please Fill All Required Field");
+    if(nameIn.value == '' || nameIn.value == null || emailIn.value == '' || emailIn.value == null || phoneIn.value == '' || phoneIn.value == null){
+		alert("Please fill all required fields.");
 		return;
 	}
-
-    console.log(nameIn.value, emailIn.value, phoneIn.value);
 
     fetch("http://cop4331group20.online/LAMPAPI/AddContacts.php",{
         method: 'POST',
@@ -143,7 +145,6 @@ addButton.addEventListener('click', () => {
 function remove(button){
     let number = button.id
     let row = document.getElementById('row'+number)
-    console.log(row)
     let deleteID = 0
     let deleteName = ""
 
@@ -190,7 +191,6 @@ function editInitialize(button){
     let number = button.id
     let row = document.getElementById('row'+number)
     let ID = 0;
-    console.log(row)
 
     //Changing ui elements
     const currentsetting = document.getElementById('currentSetting');
@@ -229,6 +229,11 @@ saveButton.addEventListener('click', () => {
     let nameIn = document.getElementById("name1").value;
     let emailIn = document.getElementById("email1").value;
     let phoneIn = document.getElementById("phoneNumber1").value;
+
+    if(nameIn.value == '' || nameIn.value == null || emailIn.value == '' || emailIn.value == null || phoneIn.value == '' || phoneIn.value == null){
+		alert("Please fill all required fields.");
+		return;
+	}
 
     fetch("http://cop4331group20.online/LAMPAPI/UpdateContacts.php", {
         method: 'POST',
@@ -272,6 +277,3 @@ function revertCurrentSetting(){
     emailIn.value = "";
     phoneIn.value = "";
 }
-
-// ssh root@67.205.165.241
-// http://cop4331group20.online/contacts.html
