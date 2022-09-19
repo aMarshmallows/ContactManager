@@ -65,6 +65,7 @@ searchButton.addEventListener('click', () => {
             </tr>`
             counter3++;
         }
+        counter3++;
     })
 
     document.getElementById("table_body").innerHTML = tableData2;
