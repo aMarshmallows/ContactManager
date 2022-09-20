@@ -1,3 +1,4 @@
+//initializing buttons
 const addButton = document.getElementById('addButton');
 const searchButton = document.getElementById('searchBtn');
 const seeAllButton = document.getElementById('seeAll');
@@ -15,14 +16,15 @@ cancelEditButton.style.display = "none";
 
 let contacts = []
 
-// loading table values API
+// loading all contacts upon login
+// fetching from API
 fetch("http://cop4331group20.online/LAMPAPI/SearchContacts.php",{
     method: 'POST',
     headers:{
         'Content-Type':'application/json'
     },
     body: JSON.stringify({
-        userId: usrID,
+        userId: usrID, // matches userId to the one who's logged in
         search: ""
     })
 }).then(res => {
@@ -30,6 +32,7 @@ fetch("http://cop4331group20.online/LAMPAPI/SearchContacts.php",{
 }).then(data => {
     let tableData = "";
     let counter = 0;
+    // adding each contact from API JSON
     contacts = data["results"].map((values)=>{
         tableData+= `
         <tr id="row${counter}">
@@ -51,6 +54,7 @@ fetch("http://cop4331group20.online/LAMPAPI/SearchContacts.php",{
 searchButton.addEventListener('click', () => {
     const value = document.getElementById("search").value;
 
+    // empty field check
     if(value == '' || value == null){
         alert("Please fill all required fields.")
         return;
@@ -58,8 +62,11 @@ searchButton.addEventListener('click', () => {
 
     let tableData2 = "";
     let counter3 = 0;
+    // if the contact in the contact list contains what is searched, it will show up in the table
     contacts.forEach(contact => {
-        const isVisible = contact.Name.toLowerCase().includes(value) || contact.Email.toLowerCase().includes(value) || contact.Phone.includes(value) || contact.Name.includes(value) || contact.Email.includes(value);
+        const isVisible = contact.Name.toLowerCase().includes(value) || contact.Email.toLowerCase().includes(value) || contact.Phone.includes(value) || contact.Name.includes(value) || contact.Email.includes(value) || contact.Name.toUpperCase().includes(value) || contact.Email.toUpperCase().includes(value);
+        
+        let flag = 0 // used for button IDs that is used later in edit and remove
         
         if(isVisible == true){
             tableData2 += `<tr>
@@ -69,14 +76,19 @@ searchButton.addEventListener('click', () => {
             <td><button class="buttons" id="${counter3}" onclick="remove(this)">Delete</button><button class="buttons" id="${counter3}" onclick="editInitialize(this)">Edit</button></td>
             </tr>`
             counter3++;
+            flag++
         }
-        counter3++;
+        
+        if(flag == 0){
+          counter3++
+        }
     })
 
     document.getElementById("table_body").innerHTML = tableData2;
 })
 
 // show all contacts
+// same as initial fetch of values
 seeAllButton.addEventListener('click', () => {
 
     fetch("http://cop4331group20.online/LAMPAPI/SearchContacts.php",{
@@ -117,11 +129,13 @@ addButton.addEventListener('click', () => {
     let emailIn = document.getElementById("email1");
     let phoneIn = document.getElementById("phoneNumber1");
 
+    // empty field check
     if(nameIn.value == '' || nameIn.value == null || emailIn.value == '' || emailIn.value == null || phoneIn.value == '' || phoneIn.value == null){
 		alert("Please fill all required fields.");
 		return;
 	}
 
+    // calling API
     fetch("http://cop4331group20.online/LAMPAPI/AddContacts.php",{
         method: 'POST',
         headers:{
@@ -136,7 +150,6 @@ addButton.addEventListener('click', () => {
     }).then(res => {
         return res.json()
     }).then(data => {
-        console.log(data);
         location.reload();
     }).catch(error => console.log("Failed to add contact."))
 });
@@ -148,6 +161,7 @@ function remove(button){
     let deleteID = 0
     let deleteName = ""
 
+    // calling API
     fetch("http://cop4331group20.online/LAMPAPI/SearchContacts.php",{
         method: 'POST',
         headers:{
@@ -163,6 +177,7 @@ function remove(button){
         deleteID = data["results"][number].ID
         deleteName = data["results"][number].Name
 
+        // fetch within fetch so that deleteID and deleteName variables work with delete fetch
         fetch("http://cop4331group20.online/LAMPAPI/DeleteContacts.php", {
         method: 'POST',
         headers:{
@@ -180,10 +195,11 @@ function remove(button){
             
         }).catch(error=>console.log('ERROR'))
 }
+
 //logout logic
 logoutButton.addEventListener('click', () => {
     localStorage.clear();
-    location.href = "./index.html";
+    location.href = "./index.html?#";
 })
 
 //Initilizes page for Edit contact function
@@ -218,7 +234,6 @@ function editInitialize(button){
         let phoneIn = document.getElementById("phoneNumber1");
         phoneIn.value = data["results"][number].Phone;
         window.ID = data["results"][number].ID;
-        console.log(data["results"][number].Name);
             
         }).catch(error=>{
             console.log('ERROR');
@@ -230,10 +245,6 @@ saveButton.addEventListener('click', () => {
     let emailIn = document.getElementById("email1").value;
     let phoneIn = document.getElementById("phoneNumber1").value;
 
-    if(nameIn.value == '' || nameIn.value == null || emailIn.value == '' || emailIn.value == null || phoneIn.value == '' || phoneIn.value == null){
-		alert("Please fill all required fields.");
-		return;
-	}
 
     fetch("http://cop4331group20.online/LAMPAPI/UpdateContacts.php", {
         method: 'POST',
@@ -277,3 +288,6 @@ function revertCurrentSetting(){
     emailIn.value = "";
     phoneIn.value = "";
 }
+
+// ssh root@67.205.165.241
+// http://cop4331group20.online/contacts.html
